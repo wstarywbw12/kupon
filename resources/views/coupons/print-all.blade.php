@@ -33,11 +33,9 @@
             padding: 10px 14px;
             border-radius: 12px;
             box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-            background: url("{{ asset('img/bg.png') }}") no-repeat center center;
+            background: url("{{ asset('img/bg2.jpeg') }}") no-repeat center center;
             background-size: cover;
-            /* gambar menyesuaikan area */
             margin-bottom: 0.5cm;
-            /* lebih rapat agar muat 5 baris */
             page-break-inside: avoid;
             position: relative;
             color: #111827;
@@ -50,7 +48,6 @@
             justify-content: center;
             gap: 4px;
             z-index: 2;
-            /* agar teks muncul di atas background */
         }
 
         .brand {
@@ -72,31 +69,54 @@
             max-width: 8cm;
         }
 
-        .code {
-            font-size: 20px;
-            font-weight: 800;
+        /* Bagian kanan (QR dan Nomor) */
+        .right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        .nomor {
-            font-size: 20px;
-            font-weight: 800;
-            color: #fff;
-            margin-top: 123px;
-            margin-right: 80px;
+        .qr-wrapper {
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 118px;
+            height: 130px;
+            border-radius: 9px;
+            margin-top: 1px;
+            border: 2px solid black;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
         .qr {
-            width: 95px;
-            height: 95px;
+            width: 100px;
+            height: 100px;
             object-fit: contain;
-            z-index: 2;
-            margin-top: 15px;
-            margin-right: 15px;
         }
 
-        .page-break {
-            page-break-after: always;
+        .nomor {
+            font-size: 18px;
+            font-weight: 800;
+            color: black;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 118px;
+            height: 28px;
+            border-radius: 9px;
+            text-align: center;
+            margin: 0;
+            border: 2px solid black;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
+
+
+        /* .page-break {
+            page-break-after: always;
+        } */
 
         @media print {
             body {
@@ -117,27 +137,24 @@
         @foreach ($coupons as $index => $coupon)
             <div class="col-12 d-flex justify-content-center">
                 <div class="coupon">
-                    <div class="right text-center">
-                        <img  src="{{ asset('storage/' . $coupon->barcode_path) }}" class="qr mr-5"
-                            alt="QR {{ $coupon->code }}">
-                    </div>
-                    <div class="">
+                    <div class="left">
+                        {{-- Tambahkan jika ingin teks lain di sisi kiri --}}
                         {{-- <div class="brand">RSUD JOMBANG</div>
-                                <div class="title">Kupon Undian</div>
-                                <div class="desc">Scan QR Code untuk registrasi. Satu kupon hanya berlaku satu kali.</div>
-                                 --}}
-
-                        <div  class="nomor ">{{ $coupon->code }}</div>
-
+                        <div class="title">Kupon Undian</div>
+                        <div class="desc">Scan QR Code untuk registrasi. Satu kupon hanya berlaku satu kali.</div> --}}
                     </div>
 
+                    <div class="right">
+                        <div class="qr-wrapper">
+                            <img src="{{ asset('storage/' . $coupon->barcode_path) }}" class="qr"
+                                alt="QR {{ $coupon->code }}">
+                        </div>
+                        <div class="car">
+                            <div class="nomor">{{ $coupon->code }}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            {{-- Setiap 10 kupon, buat page break --}}
-            @if (($index + 1) % 10 == 0)
-                <div class="page-break"></div>
-            @endif
         @endforeach
     </div>
 

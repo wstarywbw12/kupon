@@ -30,9 +30,9 @@
 
                     <td>
                         @if ($c->used)
-                            <span class="badge bg-danger">Sudah Dipakai</span>
+                            <span class="badge bg-danger">Sudah Registrasi</span>
                         @else
-                            <span class="badge bg-success">Belum Dipakai</span>
+                            <span class="badge bg-success">Belum Registrasi</span>
                         @endif
                     </td>
                     <td>{{ $c->scanned_at ? $c->scanned_at->format('d-m-Y H:i') : '-' }}</td>
