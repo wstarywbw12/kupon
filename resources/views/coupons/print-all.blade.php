@@ -81,15 +81,17 @@
             font-size: 20px;
             font-weight: 800;
             color: #fff;
-            margin-top: 120px;
+            margin-top: 123px;
             margin-right: 80px;
         }
 
         .qr {
-            width: 120px;
-            height: 120px;
+            width: 95px;
+            height: 95px;
             object-fit: contain;
             z-index: 2;
+            margin-top: 15px;
+            margin-right: 15px;
         }
 
         .page-break {
