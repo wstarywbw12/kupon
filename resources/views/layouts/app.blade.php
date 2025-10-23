@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi Kupon</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: rgb(215, 235, 253);
+        }
+    </style>
 </head>
 <body class="">
     {{-- <nav class="navbar navbar-dark bg-dark mb-4">

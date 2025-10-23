@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Coupon;
+use App\Models\Peserta;
 
 class CouponController extends Controller
 {
@@ -32,29 +33,63 @@ class CouponController extends Controller
     {
         $request->validate(['code' => 'required|string']);
 
-        $code = $request->input('code');
+        $inputCode = trim($request->input('code'));
 
-        $coupon = Coupon::where('code', $code)->first();
+        // Hilangkan leading zero untuk perbandingan numerik
+        $numericCode = ltrim($inputCode, '0');
+
+        // Cek kupon di DB lokal (cocokkan dengan atau tanpa leading zero)
+        $coupon = Coupon::where(function ($query) use ($inputCode, $numericCode) {
+            $query->where('code', $inputCode)
+                ->orWhere('code', str_pad($numericCode, 4, '0', STR_PAD_LEFT))
+                ->orWhereRaw('CAST(code AS UNSIGNED) = ?', [$numericCode ?: 0]);
+        })->first();
 
         if (! $coupon) {
-            return back()->with('error', 'Kupon tidak ditemukan.');
-        }
-        if ($coupon->used) {
-            return back()->with('error', 'Kupon sudah terpakai.');
+            return back()->with('error', "Kupon {$inputCode} tidak ditemukan.");
         }
 
+        if ($coupon->used) {
+            return back()->with('error', "Kupon {$coupon->code} sudah terdaftar.");
+        }
+
+        // Tandai kupon sebagai sudah digunakan
         $coupon->update([
             'used' => true,
             'scanned_at' => now(),
-            'scanned_by' => $request->user()?->id ? (string)$request->user()->id : $request->ip()
+            'scanned_by' => $request->user()?->id ? (string)$request->user()->id : $request->ip(),
         ]);
 
-        return back()->with('success', "Kupon {$code} berhasil didaftarkan.");
+        // Tambahkan data ke tabel peserta di DB remote
+        try {
+            Peserta::create([
+                'nomor' => $coupon->code,
+                'status' => 'belum',
+            ]);
+        } catch (\Exception $e) {
+            // Jika gagal insert ke DB remote, rollback update kupon
+            $coupon->update([
+                'used' => false,
+                'scanned_at' => null,
+                'scanned_by' => null,
+            ]);
+
+            return back()->with('error', 'Gagal menyimpan ke database peserta: ' . $e->getMessage());
+        }
+
+        return back()->with('success', "Kupon {$coupon->code} berhasil diregistrasi dan disimpan ke peserta.");
     }
+
 
     public function printAll()
     {
         $coupons = \App\Models\Coupon::orderBy('id')->get();
         return view('coupons.print-all', compact('coupons'));
+    }
+
+    public function peserta()
+    {
+        $data = \App\Models\Peserta::all();
+        return $data;
     }
 }

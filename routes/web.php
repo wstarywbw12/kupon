@@ -21,3 +21,5 @@ Route::get('/coupons/{coupon}', [CouponController::class, 'show'])->name('coupon
 Route::get('/coupons/{coupon}/print', [CouponController::class, 'print'])->name('coupons.print');
 
 Route::get('/coupons/print/all', [CouponController::class, 'printAll'])->name('coupons.print.all');
+
+Route::get('/peserta', [CouponController::class, 'peserta'])->name('peserta.index');
