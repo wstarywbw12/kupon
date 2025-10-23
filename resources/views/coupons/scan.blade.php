@@ -150,7 +150,7 @@
                                 placeholder="Scan atau ketik kode kupon..." />
                         </div>
 
-                        <button style="background-color: #00365A"
+                        <button style="background: linear-gradient(45deg, #0288D1, #26C6DA);"
                             class="btn  form-control text-light mt-3 fw-bold">REGISTRASI</button>
                     </form>
 
