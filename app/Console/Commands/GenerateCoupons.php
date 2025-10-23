@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class GenerateCoupons extends Command
 {
-    protected $signature = 'coupons:generate {count=1680}';
+    protected $signature = 'coupons:generate {count=1700}';
     protected $description = 'Generate kupon 4-digit dengan QR Code';
 
     public function handle()
