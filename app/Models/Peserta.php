@@ -14,5 +14,5 @@ class Peserta extends Model
         'status',
     ];
 
-    public $timestamps = false;
+   // public $timestamps = false;
 }

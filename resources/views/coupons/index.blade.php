@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex justify-content-between align-items-center my-3">
         <h4>Daftar Kupon</h4>
         <a href="{{ url('/scan') }}" class="btn btn-success">Scan Kupon</a>
     </div>
@@ -14,7 +14,6 @@
                 <th>Barcode</th>
                 <th>Status</th>
                 <th>Terdaftar</th>
-                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -36,11 +35,6 @@
                         @endif
                     </td>
                     <td>{{ $c->scanned_at ? $c->scanned_at->format('d-m-Y H:i') : '-' }}</td>
-                    <td>
-                        <a href="{{ route('coupons.show', $c->id) }}" class="btn btn-sm btn-primary">Lihat</a>
-                        <a href="{{ route('coupons.print', $c->id) }}" target="_blank"
-                            class="btn btn-sm btn-secondary">Cetak</a>
-                    </td>
                 </tr>
             @endforeach
         </tbody>

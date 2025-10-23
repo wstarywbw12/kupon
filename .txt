@@ -2,3 +2,6 @@ UPDATE peserta
 SET STATUS = "belum";
 
 
+UPDATE coupons
+SET used = 0, scanned_at = NULL, scanned_by = NULL ;
+
