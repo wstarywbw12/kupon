@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrasi Kupon — HARLAH RSUD JOMBANG KE 71</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/rs.png') }}">
+    <meta content="#03A9F4" name="theme-color">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
