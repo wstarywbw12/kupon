@@ -1,315 +1,165 @@
-
+<!-- Slot Spinner HTML/JS Version (Single Stop Button + Light Effect + Winner List) -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎰 Spinner 4 Digit — HARLAH RSUD JOMBANG KE 71</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Poppins', sans-serif;
-  background: radial-gradient(circle at center, #E1F5FE, #BBDEFB);
-  color: #03396c;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* ===== HEADER CERAH BIRU ===== */
-header {
-  position: relative;
-  width: 100%;
-  padding: 25px 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(90deg, #0288D1, #03A9F4, #4FC3F7, #81D4FA);
-  background-size: 300% 300%;
-  animation: moveGradient 6s ease infinite;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-  border-bottom: 3px solid rgba(255,255,255,0.6);
-}
-@keyframes moveGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-header h1 {
-  font-size: 2.3rem;
-  font-weight: 800;
-  color: #fff;
-  text-shadow: 0 3px 10px rgba(0,0,0,0.3);
-  letter-spacing: 2px;
-  text-align: center;
-}
-.header-logos {
-  position: absolute;
-  right: 40px;
-  top: 15px;
-  display: flex;
-  gap: 20px;
-}
-.header-logos img {
-  height: 60px;
-  width: auto;
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.9));
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-.header-logos img:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 15px rgba(255,255,255,1));
-}
-
-
-.header-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-header .subtitle {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #e3f2fd;
-  margin-top: 8px;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  letter-spacing: 1px;
-  animation: fadeIn 1.5s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ===== BOX ANGKA ===== */
-.boxes {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  gap: 30px;
-}
-.box {
-  width: 18vw;
-  height: 25vh;
-  min-width: 130px;
-  background: linear-gradient(180deg, #FFFFFF, #E3F2FD);
-  border-radius: 25px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #01579B;
-  font-size: 12vw;
-  font-weight: 800;
-  text-shadow: 0 3px 6px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
-}
-.box.spin { animation: pulse 0.2s infinite alternate; }
-@keyframes pulse {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
-}
-
-/* ===== BUTTON ===== */
-.controls { margin-bottom: 20px; text-align: center; }
-button {
-  font-size: 1.5rem;
-  padding: 15px 50px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  color: #fff;
-  background: linear-gradient(45deg, #0288D1, #26C6DA);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
-button:hover { transform: scale(1.08); filter: brightness(1.1); }
-button:disabled { opacity: 0.5; cursor: not-allowed; }
-
-#winnerName {
-  font-size: 1.5rem;
-  margin-top: 15px;
-  color: #01579B;
-  text-shadow: 0 0 8px rgba(255,255,255,0.8);
-  font-weight: 600;
-}
-
-/* ===== CONFETTI ===== */
-.confetti {
-  position: fixed;
-  top: 0;
-  width: 12px; height: 12px;
-  opacity: 0.9;
-  z-index: 999;
-  animation: fall 3s linear forwards;
-}
-@keyframes fall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-}
-
-/* ===== FOOTER ===== */
-footer {
-  width: 100%;
-  background: linear-gradient(90deg, #0277BD, #4FC3F7, #03A9F4, #81D4FA);
-  background-size: 300% 300%;
-  animation: moveGradient 8s ease infinite;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  padding: 15px 0;
-  flex-wrap: wrap;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.25);
-  border-top: 3px solid rgba(255,255,255,0.6);
-}
-footer img {
-  height: 60px;
-  width: auto;
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.9));
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-footer img:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 15px rgba(255,255,255,1));
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slot Spinner 4 Angka</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: radial-gradient(circle at center, #222 0%, #000 100%);
+      overflow: hidden;
+    }
+    .digit {
+      transition: transform 0.1s ease-in-out;
+    }
+    .spinning {
+      animation: spinAnim 0.2s linear infinite;
+    }
+    @keyframes spinAnim {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .light-ring {
+      position: absolute;
+      inset: -30px;
+      border-radius: 9999px;
+      border: 10px solid transparent;
+      border-top-color: gold;
+      border-right-color: orange;
+      border-bottom-color: red;
+      border-left-color: yellow;
+      animation: spinLights 2s linear infinite;
+      filter: drop-shadow(0 0 8px gold);
+      z-index: -1;
+    }
+    @keyframes spinLights {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
-<body>
+<body class="min-h-screen flex items-center justify-center">
+  <div class="flex gap-8 items-start">
+    <!-- Slot Machine -->
+    <div class="relative bg-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-lg text-center overflow-hidden">
+      <div class="light-ring"></div>
+      <h1 class="text-3xl font-extrabold mb-3 text-yellow-300 drop-shadow">🎰 Slot Spinner</h1>
+      <p class="text-gray-400 mb-6">Acak 4 angka dan rasakan sensasi lampu kasino!</p>
 
-<header>
-  <div class="header-text">
-    <h1>SPIN UNDIAN HADIAH</h1>
-    <p class="subtitle">DALAM RANGKA HARLAH RSUD JOMBANG KE 71</p>
+      <div id="slot" class="flex justify-center gap-4 mb-6">
+        <div class="reel bg-gray-100 border-4 border-yellow-400 w-20 h-28 rounded-xl flex items-center justify-center text-5xl font-mono font-bold text-gray-800">0</div>
+        <div class="reel bg-gray-100 border-4 border-yellow-400 w-20 h-28 rounded-xl flex items-center justify-center text-5xl font-mono font-bold text-gray-800">0</div>
+        <div class="reel bg-gray-100 border-4 border-yellow-400 w-20 h-28 rounded-xl flex items-center justify-center text-5xl font-mono font-bold text-gray-800">0</div>
+        <div class="reel bg-gray-100 border-4 border-yellow-400 w-20 h-28 rounded-xl flex items-center justify-center text-5xl font-mono font-bold text-gray-800">0</div>
+      </div>
+
+      <div class="flex justify-center gap-3 mb-6">
+        <button id="spinBtn" class="bg-rose-600 text-white px-6 py-3 rounded-lg hover:bg-rose-700 font-semibold shadow">Spin</button>
+        <button id="stopBtn" class="bg-gray-300 hover:bg-gray-400 text-black px-6 py-3 rounded-lg font-semibold shadow">Stop</button>
+      </div>
+
+      <div id="result" class="text-2xl font-mono font-bold text-yellow-300">0000</div>
+
+      <audio id="spinSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_01b343b690.mp3?filename=spinning-slot-machine-1.mp3"></audio>
+      <audio id="stopSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5c1c918a17.mp3?filename=click-124467.mp3"></audio>
+    </div>
+
+    <!-- Winner List -->
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-xl w-64 h-[480px] overflow-y-auto text-white">
+      <h2 class="text-xl font-bold text-yellow-300 mb-3 text-center">🏆 Pemenang</h2>
+      <ul id="winnerList" class="space-y-2 text-sm"></ul>
+    </div>
   </div>
-  <div class="header-logos">
-    <img src="{{ asset('img/jbg.png') }}" alt="Logo A">
-    <img src="gambar/footer/6.png" alt="Logo B">
-  </div>
-</header>
 
-<div class="boxes">
-  <div class="box" id="d0">0</div>
-  <div class="box" id="d1">0</div>
-  <div class="box" id="d2">0</div>
-  <div class="box" id="d3">0</div>
-</div>
+  <script>
+    const reels = document.querySelectorAll('.reel');
+    const spinBtn = document.getElementById('spinBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const result = document.getElementById('result');
+    const spinSound = document.getElementById('spinSound');
+    const stopSound = document.getElementById('stopSound');
+    const winnerList = document.getElementById('winnerList');
 
-<div class="controls">
-  <button id="spinBtn">MULAI</button>
-  <div id="winnerName"></div>
-</div>
+    let intervals = [];
 
-<!-- FOOTER DENGAN 5 GAMBAR -->
-<footer>
-  <img src="gambar/footer/2.png" alt="Logo 1">
-  <img src="gambar/footer/7.png" alt="Logo 2">
-  <img src="gambar/footer/1.png" alt="Logo 3">
-  <img src="gambar/footer/4.png" alt="Logo 4">
-  <img src="gambar/footer/3.png" alt="Logo 5">
-</footer>
-
-<!-- === SOUND EFFECTS === -->
-<audio id="spinSound" preload="auto" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_d6b4e7ff1b.mp3?filename=slot-machine-loop-10468.mp3" type="audio/mp3">
-</audio>
-<audio id="winSound" preload="auto">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_2b98748f71.mp3?filename=winning-ding-2-108021.mp3" type="audio/mp3">
-</audio>
-
-<script>
-const boxes = [d0, d1, d2, d3];
-const spinBtn = document.getElementById('spinBtn');
-const winnerName = document.getElementById('winnerName');
-const spinSound = document.getElementById('spinSound');
-const winSound = document.getElementById('winSound');
-
-let spinning = false;
-let intervals = [];
-let audioUnlocked = false;
-
-// Fungsi untuk unlock audio pertama kali klik
-function unlockAudio() {
-  if (!audioUnlocked) {
-    spinSound.play().then(() => {
-      spinSound.pause();
-      spinSound.currentTime = 0;
-      audioUnlocked = true;
-      console.log("Audio unlocked ✅");
-    }).catch(err => console.log("Audio unlock failed:", err));
-  }
-}
-
-function startSpin() {
-  unlockAudio();
-  boxes.forEach(b => b.classList.add('spin'));
-  intervals = boxes.map((box) => setInterval(() => {
-    box.textContent = Math.floor(Math.random() * 10);
-  }, 50));
-  spinSound.currentTime = 0;
-  spinSound.play().catch(()=>{});
-}
-
-function stopSpin(finalNumber) {
-  intervals.forEach(clearInterval);
-  boxes.forEach(b => b.classList.remove('spin'));
-  spinSound.pause();
-  winSound.currentTime = 0;
-  winSound.play().catch(()=>{});
-  const numStr = finalNumber.toString().padStart(4, '0');
-  numStr.split('').forEach((d, i) => boxes[i].textContent = d);
-}
-
-function launchConfetti() {
-  for (let i = 0; i < 100; i++) {
-    const c = document.createElement('div');
-    c.classList.add('confetti');
-    c.style.left = Math.random() * 100 + 'vw';
-    c.style.background = `hsl(${Math.random()*240}, 80%, 60%)`;
-    c.style.animationDuration = 2.5 + Math.random() + 's';
-    c.style.width = c.style.height = (8 + Math.random()*6) + 'px';
-    document.body.appendChild(c);
-    setTimeout(() => c.remove(), 3000);
-  }
-}
-
-spinBtn.onclick = async () => {
-  if (!spinning) {
-    spinning = true;
-    spinBtn.textContent = "🛑 BERHENTI 🛑";
-    winnerName.textContent = "Sedang berputar...";
-    startSpin();
-  } else {
-    spinning = false;
-    spinBtn.disabled = true;
-    spinBtn.textContent = "MULAI";
-
-    const res = await fetch('spin.php');
-    const data = await res.json();
-
-    if (!data.success) {
-      winnerName.textContent = data.message;
-      spinBtn.disabled = false;
-      return;
+    function randomDigit() {
+      return Math.floor(Math.random() * 10);
     }
 
-    const nomor = data.winner.nomor.toString().padStart(4, "0");
-    stopSpin(nomor);
-    const text = ``;
-    winnerName.textContent = text;
-    launchConfetti();
-    spinBtn.disabled = false;
-  }
-};
-</script>
+    function spinAll() {
+      spinSound.currentTime = 0;
+      spinSound.play();
+      reels.forEach((reel, i) => {
+        reel.classList.add('spinning');
+        intervals[i] = setInterval(() => {
+          reel.textContent = randomDigit();
+        }, 60 + i * 20);
+      });
+      stopBtn.disabled = false;
+      spinBtn.disabled = true;
+    }
 
+    function stopAll() {
+      intervals.forEach((intv, i) => {
+        clearInterval(intv);
+        reels[i].classList.remove('spinning');
+      });
+      intervals = [];
+      stopSound.currentTime = 0;
+      stopSound.play();
+      showConfetti();
+      const finalCode = updateResult();
+      addWinner(finalCode);
+      stopBtn.disabled = true;
+      spinBtn.disabled = false;
+    }
 
+    function updateResult() {
+      const current = Array.from(reels).map(r => r.textContent).join('');
+      result.textContent = current;
+      return current;
+    }
+
+    function addWinner(code) {
+      const li = document.createElement('li');
+      const date = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      li.innerHTML = `<span class='text-yellow-400 font-mono'>${code}</span> <span class='text-gray-400 text-xs'>(${date})</span>`;
+      winnerList.prepend(li);
+    }
+
+    function showConfetti() {
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = window.innerWidth / 2 + 'px';
+        p.style.top = window.innerHeight / 2 + 'px';
+        p.style.background = `hsl(${Math.random() * 360}, 100%, 60%)`;
+        document.body.appendChild(p);
+
+        const xMove = (Math.random() - 0.5) * 400;
+        const yMove = (Math.random() - 0.5) * 400;
+        p.animate([
+          { transform: 'translate(0,0)', opacity: 1 },
+          { transform: `translate(${xMove}px, ${yMove}px)`, opacity: 0 }
+        ], { duration: 1000 + Math.random() * 500, easing: 'ease-out' });
+
+        setTimeout(() => p.remove(), 1200);
+      }
+    }
+
+    spinBtn.addEventListener('click', spinAll);
+    stopBtn.addEventListener('click', stopAll);
+  </script>
 </body>
 </html>

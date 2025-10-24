@@ -82,7 +82,7 @@ class CouponController extends Controller
             return back()->with('error', 'Gagal menyimpan ke database peserta: ' . $e->getMessage());
         }
 
-        return back()->with('success', "Kupon {$coupon->code} berhasil diregistrasi dan disimpan ke peserta.");
+        return back()->with('success', "Kupon {$coupon->code} berhasil diregistrasi.");
     }
 
 

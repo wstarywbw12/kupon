@@ -22,6 +22,11 @@
             */
         }
 
+        .alert {
+            font-size: 40px;
+            font-weight: 800;
+        }
+
         /* ===== HEADER CERAH BIRU ===== */
         header {
             position: relative;
@@ -47,10 +52,11 @@
             margin: 0;
             padding: 0;
         }
-         header p {
-             margin: 0;
+
+        header p {
+            margin: 0;
             padding: 0;
-         }
+        }
 
         .header-logos {
             position: absolute;
@@ -117,6 +123,28 @@
             transform: scale(1.1);
             filter: drop-shadow(0 0 15px rgba(255, 255, 255, 1));
         }
+
+        .custom-input {
+            height: 90px;
+            font-size: 2rem;
+            text-align: center;
+            vertical-align: middle;
+            padding: 0;
+            line-height: 90px;
+        }
+
+        .label{
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .green{
+            color: green;
+        }
+
+        .red{
+            color: red;
+
+        }
     </style>
 </head>
 
@@ -125,7 +153,7 @@
     <header>
         <div class="header-text">
             <h1 class="mb-1 pb-1">REGISTRASI KUPON</h1>
-            <p class="subtitle ">DALAM RANGKA HARLAH RSUD JOMBANG KE 71</p>
+            {{-- <p class="subtitle ">DALAM RANGKA HARLAH RSUD JOMBANG KE 71</p> --}}
         </div>
         <div class="header-logos">
             <img src="{{ asset('img/jbg.png') }}" alt="Logo A" class="header-logo">
@@ -136,23 +164,27 @@
 
     <div class="container">
         <div class="card shadow-sm">
-            <div class="card-body">
+            <div class="card-body py-1">
                 <div style="margin:2rem auto">
 
 
                     @if (session('error'))
-                        <div class="alert alert-danger">{{ session('error') }}</div>
+                        <div class="alert text-center red py-5 alert-danger">{{ session('error') }}</div>
                     @endif
                     @if (session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
+                        <div class="alert text-center  green py-5 alert-success">{{ session('success') }}</div>
                     @endif
 
                     <form id="couponForm" method="POST" action="{{ route('coupons.scan') }}">
                         @csrf
                         <div class="mb-3">
-                            <label for="code" class="form-label">Kode Kupon</label>
+                            {{-- <label for="code" class="form-label">Kode Kupon</label>
                             <input id="code" name="code" autofocus class="form-control" autocomplete="off"
-                                placeholder="Scan atau ketik kode kupon..." />
+                                placeholder="Scan atau ketik kode kupon..." /> --}}
+
+                            <label for="code" class="form-label label">Kode Kupon</label>
+                            <input id="code" name="code" autofocus class="form-control custom-input"
+                                autocomplete="off" placeholder="Scan atau ketik kode kupon..." />
                         </div>
 
                         <button style="background: linear-gradient(45deg, #0288D1, #26C6DA);"
@@ -161,8 +193,6 @@
 
                     {{-- <hr> --}}
 
-                    {{-- <h5>Atau Scan dengan Kamera</h5>
-                        <div id="reader" style="width:100%;max-width:400px;margin:auto"></div> --}}
                 </div>
             </div>
         </div>
