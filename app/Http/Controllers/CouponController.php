@@ -38,7 +38,7 @@ class CouponController extends Controller
         // Hilangkan leading zero untuk perbandingan numerik
         $numericCode = ltrim($inputCode, '0');
 
-        // Cek kupon di DB lokal (cocokkan dengan atau tanpa leading zero)
+        // Cari kupon di DB lokal (cocokkan dengan atau tanpa leading zero)
         $coupon = Coupon::where(function ($query) use ($inputCode, $numericCode) {
             $query->where('code', $inputCode)
                 ->orWhere('code', str_pad($numericCode, 4, '0', STR_PAD_LEFT))
@@ -62,10 +62,15 @@ class CouponController extends Controller
 
         // Tambahkan data ke tabel peserta di DB remote
         try {
-            Peserta::create([
-                'nomor' => $coupon->code,
-                'status' => 'belum',
-            ]);
+            // Periksa apakah nomor sudah ada di tabel peserta
+            $exists = Peserta::where('nomor', $coupon->code)->exists();
+
+            if (! $exists) {
+                Peserta::create([
+                    'nomor' => $coupon->code,
+                    'status' => 'belum',
+                ]);
+            }
         } catch (\Exception $e) {
             // Jika gagal insert ke DB remote, rollback update kupon
             $coupon->update([
@@ -79,6 +84,7 @@ class CouponController extends Controller
 
         return back()->with('success', "Kupon {$coupon->code} berhasil diregistrasi dan disimpan ke peserta.");
     }
+
 
 
     public function printAll()
