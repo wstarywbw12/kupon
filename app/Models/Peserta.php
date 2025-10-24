@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Peserta extends Model
 {
-    protected $connection = 'mysql_remote';
+    //protected $connection = 'mysql_remote';
     protected $table = 'peserta';
 
     protected $fillable = [
