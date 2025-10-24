@@ -42,7 +42,13 @@
             text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
             letter-spacing: 2px;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
+         header p {
+             margin: 0;
+            padding: 0;
+         }
 
         .header-logos {
             position: absolute;
@@ -82,9 +88,6 @@
             animation: fadeIn 1.5s ease;
         }
 
-
-
-
         /* ===== FOOTER ===== */
         footer {
             width: 100%;
@@ -119,8 +122,8 @@
 
     <header>
         <div class="header-text">
-            <h1>REGRISTRASI KUPON</h1>
-            {{-- <p class="subtitle">DALAM RANGKA HARLAH RSUD JOMBANG KE 71</p> --}}
+            <h1 class="mb-1 pb-1">REGISTRASI KUPON</h1>
+            <p class="subtitle ">DALAM RANGKA HARLAH RSUD JOMBANG KE 71</p>
         </div>
         <div class="header-logos">
             <img src="{{ asset('img/jbg.png') }}" alt="Logo A" class="header-logo">
